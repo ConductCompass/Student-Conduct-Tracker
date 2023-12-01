@@ -9,7 +9,7 @@ import randomname
 from App.database import db, get_migrate
 from App.main import create_app
 from App.controllers import ( create_user, create_staff, get_staff, create_student, get_all_users_json, get_all_users, get_all_students, get_all_students_json )
-from App.controllers import (addStudent, create_review, get_reviews, createKarma, get_all_karma, get_all_karma_json, upvoteReview, downvoteReview)
+from App.controllers import (addStudent, create_review, get_reviews, get_reviews_json, createKarma, get_all_karma, get_all_karma_json, upvoteReview, downvoteReview)
 from App.views import (generate_random_contact_number)
 
 # This commands file allow you to create convenient CLI commands for testing controllers
@@ -79,8 +79,7 @@ def list_user_command(format):
 
 app.cli.add_command(user_cli) # add the group to the cli
 
-
-
+#student
 student_cli = AppGroup('student', help='Student object commands') 
 @student_cli.command("add", help="adds a student")
 @click.argument("studentid", default="200")
@@ -92,7 +91,7 @@ student_cli = AppGroup('student', help='Student object commands')
 
 def add_student_command(studentid, firstname, lastname, contact, studenttype, yearofstudy):
     addStudent(studentid, firstname, lastname, contact, studenttype, yearofstudy)
-    print(f'student {firstname} {lastname} added!')
+    print(f'student {studentid} added!')
 
 
 # Then define the command and any parameters and annotate it with the group (@)
@@ -151,8 +150,8 @@ def downvote_review_command(reviewid, staffid):
 def list_review_command(format):
     if format == 'string':
         print(get_reviews())
-    #else:
-    #    print(get_all_users_json())
+    else:
+        print(get_reviews_json())
 
 app.cli.add_command(review_cli) # add the group to the cli
 
@@ -175,9 +174,6 @@ def create_karma_command(studentid, score, rank):
 @karma_cli.command("list", help="Lists karmas in the database")
 @click.argument("format", default="string")
 def list_karma_command(format):
-    #if format == 'string':
-    #    print(get_all_karma())
-    #else:
     print(get_all_karma_json())
 
 app.cli.add_command(karma_cli) # add the group to the cli
