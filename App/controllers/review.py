@@ -5,6 +5,11 @@ from App.models.staff import Staff
 def get_reviews(): 
     return db.session.query(Review).all()
 
+def get_reviews_json():
+    reviews = db.session.query(Review).all()
+    reviews =  [review.to_json() for review in reviews]
+    return reviews
+
 def get_reviews_for_student(studentID):
     return db.session.query(Review).filter_by(studentID=studentID).all()
 
