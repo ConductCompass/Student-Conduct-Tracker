@@ -11,7 +11,9 @@ def createKarma(studentID, score, rank):
 
     if student:
         karma = Karma(studentID, score, rank)
-        karma = calculate_student_karma(student)
+        #notify all students of updates to scores and rankings
+        update_student_scores
+        update_student_karma_rankings
         db.session.add(karma)
         db.session.commit()
         return karma
@@ -51,7 +53,7 @@ def calculate_student_karma(student):
     
     return None
 
-#notify
+#notify students
 def update_student_scores():
     students = Student.query.all()
 
