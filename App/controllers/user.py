@@ -67,7 +67,7 @@ def get_all_staff_json():
     return staff_members
 
 def get_all_users():
-    return db.session.query(Admin).all() +  db.session.query(Staff).all() + db.session.query(Student).all()
+    return db.session.query(Admin).all() +  db.session.query(Staff).all()
 
 def get_all_students():
     return db.session.query(Student).all()
